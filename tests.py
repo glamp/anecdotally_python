@@ -1,13 +1,15 @@
 import unittest
 from anecdotally import Anecdotally
 
+from test_properties import api_test_key
+
 
 class AnecdotallyPrograms(unittest.TestCase):
     def setUp(self):
-        self.anecdotally = Anecdotally("4f947b4ebd8ad50e49000000")
+        self.anecdotally = Anecdotally(api_test_key)
 
     def test_basic(self):
-        self.assertEqual(self.anecdotally.apikey, "4f947b4ebd8ad50e49000000")
+        self.assertEqual(self.anecdotally.apikey, api_test_key)
 
     def test_get_one(self):
         progs = self.anecdotally.programs.find_one()
@@ -21,10 +23,10 @@ class AnecdotallyPrograms(unittest.TestCase):
 
 class AnecdotallyAnecdotes(unittest.TestCase):
     def setUp(self):
-        self.anecdotally = Anecdotally("4f947b4ebd8ad50e49000000")
+        self.anecdotally = Anecdotally(api_test_key)
 
     def test_basic(self):
-        self.assertEqual(self.anecdotally.apikey, "4f947b4ebd8ad50e49000000")
+        self.assertEqual(self.anecdotally.apikey, api_test_key)
 
     def test_get_one(self):
         progs = self.anecdotally.anecdotes.find_one()
@@ -59,10 +61,10 @@ class AnecdotallyAnecdotes(unittest.TestCase):
 
 class AnecdotallyUsers(unittest.TestCase):
     def setUp(self):
-        self.anecdotally = Anecdotally("4f947b4ebd8ad50e49000000")
+        self.anecdotally = Anecdotally(api_test_key)
 
     def test_basic(self):
-        self.assertEqual(self.anecdotally.apikey, "4f947b4ebd8ad50e49000000")
+        self.assertEqual(self.anecdotally.apikey, api_test_key)
 
     def test_get_one(self):
         progs = self.anecdotally.users.find_one()
