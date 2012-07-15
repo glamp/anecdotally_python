@@ -1,1 +1,4 @@
-api_test_key = ""
+
+
+username = ""
+api_key = ""

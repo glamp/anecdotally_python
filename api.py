@@ -1,13 +1,17 @@
 import json
 import urllib, urllib2
 
+
 class API(object):
-    def __init__(self, apikey, endpoint):
+    def __init__(self, username, api_key, endpoint):
+        self.username = username
         self.endpoint = endpoint
-        self.apikey = apikey
+        self.api_key = api_key
 
     def _req(self, req_type, params, data):
-        params['apikey'] = self.apikey
+        params['username'] = self.username
+        params['api_key'] = self.api_key
+        params['format'] = "json"
         rsp = http_request(self.endpoint, params, data, req_type)
         return rsp
 
@@ -43,9 +47,15 @@ class API(object):
 def http_request(url, params, data, method):
     "creates an http request"
 
+    if method in ['PUT', 'DELETE']:
+        url += params.get("id", "") + "/"
+        del params["id"]
+
+    url += "?"
     url += urllib.urlencode(params)
 
     try:
+
         opener = urllib2.build_opener(urllib2.HTTPHandler)
         request = urllib2.Request(url, data=json.dumps(data),
                             headers={'Content-Type':'application/json'})
@@ -53,6 +63,7 @@ def http_request(url, params, data, method):
         r = opener.open(request).read()
         rsp = json.loads(r)
     except:
+
         rsp = {"ERROR":"NO RESPONSE"}
    
     return rsp
